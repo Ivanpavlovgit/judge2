@@ -90,4 +90,9 @@ public class UserServiceImpl implements UserService {
 
         this.userRepository.save (user);
     }
+
+    @Override
+    public User findById (Long id) {
+        return this.userRepository.findById (id).orElse (null);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.judge2.service;
 
 import com.example.judge2.model.entity.RoleNameEnum;
+import com.example.judge2.model.entity.User;
 import com.example.judge2.model.service.UserServiceModel;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface UserService {
    List<String> findAllUserNames ();
 
     void changeRole (String username,RoleNameEnum roleNameEnum);
+
+    User findById (Long id);
 }
 
