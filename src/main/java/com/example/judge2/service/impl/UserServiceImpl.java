@@ -3,6 +3,7 @@ package com.example.judge2.service.impl;
 import com.example.judge2.model.entity.RoleNameEnum;
 import com.example.judge2.model.entity.User;
 import com.example.judge2.model.service.UserServiceModel;
+import com.example.judge2.model.view.UserProfileViewModel;
 import com.example.judge2.repository.UserRepository;
 import com.example.judge2.security.CurrentUser;
 import com.example.judge2.service.RoleService;
@@ -11,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -94,5 +96,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById (Long id) {
         return this.userRepository.findById (id).orElse (null);
+    }
+
+    @Override
+    public UserProfileViewModel findProfileById (Long id) {
+        var user = this.userRepository
+                .findById (id)
+                .orElse (null);
+
+        UserProfileViewModel userProfileViewModel = this.modelMapper
+                .map (user,UserProfileViewModel.class)
+                .setHomeworkSet (user
+                        .getHomeworkSet ()
+                        .stream ().map (homework -> homework.getExercise ().getName ()).collect (Collectors.toSet ()));
+
+        return userProfileViewModel;
     }
 }

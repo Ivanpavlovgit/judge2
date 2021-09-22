@@ -1,10 +1,8 @@
 package com.example.judge2.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "homework")
@@ -13,6 +11,17 @@ public class Homework extends BaseEntity {
     private String gitAddress;
     private User author;
     private Exercise exercise;
+    private Set<Comment> comments;
+
+    @OneToMany(mappedBy = "homework", fetch = FetchType.EAGER)
+    public Set<Comment> getComments () {
+        return comments;
+    }
+
+    public Homework setComments (Set<Comment> comments) {
+        this.comments = comments;
+        return this;
+    }
 
     @Column(name = "added_on")
     public LocalDateTime getAddedOn () {
