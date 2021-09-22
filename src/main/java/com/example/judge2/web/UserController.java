@@ -110,7 +110,7 @@ public class UserController {
 
         model.addAttribute ("user",
                 this.userService.findProfileById(id));
-
+//todo gooooooooooooooo
         return "profile";
     }
 }
